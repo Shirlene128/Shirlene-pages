@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shirlene Wan | BBA (GBM) @ HSUHK</title>
+<style>
+  :root {
+    --bg: #0f0d0f;
+    --bg2: #1a1618;
+    --accent: #c9a227;
+    --accent2: #8b1e3f;
+    --text: #ece7e1;
+    --muted: #9a918a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2rem;
+    background: rgba(15,13,15,0.85);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(201,162,39,0.15);
+  }
+  nav .logo { font-weight: 700; letter-spacing: 2px; color: var(--accent); font-size: 0.9rem; }
+  nav ul { display: flex; gap: 1.5rem; list-style: none; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; transition: color 0.3s; }
+  nav a:hover { color: var(--accent); }
+  @media (max-width: 700px) { nav ul { display: none; } }
+
+  /* HERO */
+  header {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 2rem;
+    background: radial-gradient(circle at 30% 20%, rgba(139,30,63,0.25), transparent 55%),
+                radial-gradient(circle at 75% 80%, rgba(201,162,39,0.15), transparent 55%);
+  }
+  header h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 800; letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--accent), #fff, var(--accent2));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    animation: fadeUp 1.2s ease;
+  }
+  header p {
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    color: var(--muted); letter-spacing: 2px;
+    animation: fadeUp 1.2s ease 0.3s both;
+  }
+  header .scroll {
+    position: absolute; bottom: 2rem;
+    color: var(--accent); font-size: 1.5rem;
+    animation: bounce 2s infinite;
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; max-width: 950px; margin: 0 auto; }
+  section h2 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 0.5rem; letter-spacing: 2px;
+    color: var(--text);
+  }
+  section h2 span { color: var(--accent); }
+  .subtitle { color: var(--muted); margin-bottom: 2.5rem; font-size: 0.9rem; letter-spacing: 1px; }
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.active { opacity: 1; transform: translateY(0); }
+
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    border: 1px solid rgba(201,162,39,0.12);
+    border-radius: 14px;
+    padding: 1.8rem;
+    margin-bottom: 1.2rem;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 30px rgba(201,162,39,0.12);
+  }
+  .card h3 { color: var(--accent); margin-bottom: 0.6rem; font-size: 1.15rem; letter-spacing: 1px; }
+  .card p { color: var(--muted); font-size: 0.95rem; }
+  .card ul { list-style: none; }
+  .card li { color: var(--muted); font-size: 0.95rem; padding: 0.35rem 0; border-bottom: 1px dashed rgba(201,162,39,0.1); }
+  .card li:last-child { border-bottom: none; }
+  .card li strong { color: var(--text); }
+
+  blockquote {
+    border-left: 3px solid var(--accent2);
+    padding-left: 1.2rem; margin-top: 1rem;
+    color: var(--muted); font-style: italic; font-size: 0.95rem;
+  }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+  .tag {
+    display: inline-block; padding: 0.4rem 1rem; margin: 0.3rem;
+    border: 1px solid rgba(201,162,39,0.3); border-radius: 50px;
+    color: var(--muted); font-size: 0.85rem; transition: all 0.3s;
+  }
+  .tag:hover { background: var(--accent); color: var(--bg); }
+
+  /* CONTACT */
+  #contact { text-align: center; }
+  #contact a {
+    display: inline-block; margin-top: 1.5rem;
+    padding: 0.9rem 2.5rem;
+    border: 1px solid var(--accent); border-radius: 50px;
+    color: var(--accent); text-decoration: none;
+    letter-spacing: 1px; transition: all 0.3s;
+  }
+  #contact a:hover { background: var(--accent); color: var(--bg); }
+
+  footer {
+    text-align: center; padding: 2rem;
+    color: var(--muted); font-size: 0.8rem;
+    border-top: 1px solid rgba(201,162,39,0.1);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">SHIRLENE</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#film">Film</a></li>
+    <li><a href="#reading">Reading</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <h1>WAN Hiu Lam Shirlene</h1>
+  <p>BBA (GBM) @ HSUHK · Music &amp; Film Lover · Always reading, always wandering</p>
+  <div class="scroll">↓</div>
+</header>
+
+<section id="about" class="reveal">
+  <h2>About <span>Me</span></h2>
+  <p class="subtitle">A little introduction</p>
+  <p>I'm Shirlene, a Business Administration (Global Business Management) student at HSUHK. Music and films are part of my everyday life — from Rosé's <em>rosie</em> to <em>About Time</em>, my taste is wide and ever-changing. I love reading, travelling, and connecting with people.</p>
+</section>
+
+<section id="education" class="reveal">
+  <h2>Education <span>&amp; Interests</span></h2>
+  <p class="subtitle">Hong Kong Hang Seng University</p>
+  <div class="card">
+    <h3>BBA in Global Business Management</h3>
+    <p>Focused on international business and market operations.</p>
+  </div>
+  <div class="card">
+    <h3>Favourite Course — Science and Pseudoscience</h3>
+    <p>Explaining unscientific phenomena from a scientific perspective.</p>
+    <blockquote>Fascinating yet challenging. It taught me to question what seems obvious with rigorous thinking.</blockquote>
+  </div>
+</section>
+
+<section id="music" class="reveal">
+  <h2>Music — <span>My Musical Universe</span></h2>
+  <p class="subtitle">Albums &amp; artists I love</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Rosé — <em>rosie</em></h3>
+      <ul>
+        <li><strong>Dance All Night</strong></li>
+        <li><strong>Two Years</strong></li>
+        <li>…and the whole album</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Jungkook — <em>Golden</em></h3>
+      <ul>
+        <li><strong>Yes or No</strong></li>
+        <li><strong>Standing Next to You</strong></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Adele</h3>
+      <ul><li><strong>Someone Like You</strong></li></ul>
+    </div>
+    <div class="card">
+      <h3>Shakira</h3>
+      <ul><li>Energetic tracks like <strong>Addicted to You</strong></li></ul>
+    </div>
+  </div>
+  <blockquote>My playlist has no borders — from heartfelt ballads to high-energy anthems, it's all part of my life.</blockquote>
+</section>
+
+<section id="film" class="reveal">
+  <h2>Film — <span>Stories That Stay</span></h2>
+  <p class="subtitle">International films I love</p>
+  <div class="grid">
+    <div class="card"><h3>About Time</h3><p>About cherishing the present.</p></div>
+    <div class="card"><h3>Atonement</h3><p>About love and regret.</p></div>
+  </div>
+  <blockquote>I love emotional stories that stay with you. These two moved me the most.</blockquote>
+</section>
+
+<section id="reading" class="reveal">
+  <h2>Reading <span>&amp; Travel</span></h2>
+  <p class="subtitle">Books and places I love</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Reading</h3>
+      <ul>
+        <li>Keigo Higashino's works</li>
+        <li>Currently reading: <strong>The Hollow Cross</strong></li>
+        <li>Also love the <strong>Masquerade Hotel</strong> series</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Travel</h3>
+      <ul>
+        <li>From countryside retreats to shopping in Tokyo</li>
+        <li>Dream destinations: <strong>Austria</strong> &amp; <strong>Belgium</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <h2>Skills</h2>
+  <p class="subtitle">What I bring</p>
+  <div>
+    <span class="tag">Communication</span>
+    <span class="tag">Presentation</span>
+    <span class="tag">Market Analysis</span>
+    <span class="tag">Chinese</span>
+    <span class="tag">English</span>
+    <span class="tag">Canva</span>
+    <span class="tag">Excel</span>
+    <span class="tag">Social Media</span>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <h2>Get in <span>Touch</span></h2>
+  <p class="subtitle">Feel free to reach out</p>
+  <p>I'm always open to a good conversation about music, films, or business.</p>
+  <a href="mailto:shirlene6128@gmail.com">shirlene6128@gmail.com</a>
+</section>
+
+<footer>© 2026 WAN Hiu Lam Shirlene · Built with Vibe Coding</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
