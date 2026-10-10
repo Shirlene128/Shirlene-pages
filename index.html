@@ -6,153 +6,353 @@
 <title>Shirlene Wan | BBA (GBM) @ HSUHK</title>
 <style>
   :root {
-    --bg: #0f0d0f;
-    --bg2: #1a1618;
-    --accent: #c9a227;
-    --accent2: #8b1e3f;
-    --text: #ece7e1;
-    --muted: #9a918a;
+    --bg: #fff5f7;
+    --bg-grad1: #ffe4ec;
+    --bg-grad2: #f5e6ff;
+    --card-bg: #ffffff;
+    --accent: #d17b9a;
+    --accent2: #e8a0b8;
+    --accent3: #c9a6e8;
+    --text: #4a3448;
+    --muted: #8b6e85;
+    --border: rgba(209, 123, 154, 0.2);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--bg);
+    background: linear-gradient(135deg, var(--bg), var(--bg-grad1), var(--bg-grad2), var(--bg));
+    background-size: 400% 400%;
+    animation: bgMove 20s ease infinite;
     color: var(--text);
     font-family: 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.7;
     overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
   }
-  /* NAV */
+  @keyframes bgMove {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  #cursor-glow {
+    position: fixed;
+    width: 450px; height: 450px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(232,160,184,0.35), transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    z-index: 0;
+    mix-blend-mode: multiply;
+  }
+  .petal {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1rem;
+    opacity: 0.4;
+    z-index: 0;
+    animation: floatDown linear infinite;
+  }
+  @keyframes floatDown {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
   nav {
     position: fixed; top: 0; width: 100%;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 1.2rem 2rem;
-    background: rgba(15,13,15,0.85);
-    backdrop-filter: blur(10px);
+    padding: 1.1rem 2rem;
+    background: rgba(255, 245, 247, 0.8);
+    backdrop-filter: blur(14px);
     z-index: 100;
-    border-bottom: 1px solid rgba(201,162,39,0.15);
+    border-bottom: 1px solid var(--border);
   }
-  nav .logo { font-weight: 700; letter-spacing: 2px; color: var(--accent); font-size: 0.9rem; }
-  nav ul { display: flex; gap: 1.5rem; list-style: none; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; transition: color 0.3s; }
-  nav a:hover { color: var(--accent); }
-  @media (max-width: 700px) { nav ul { display: none; } }
-
-  /* HERO */
-  header {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center; padding: 2rem;
-    background: radial-gradient(circle at 30% 20%, rgba(139,30,63,0.25), transparent 55%),
-                radial-gradient(circle at 75% 80%, rgba(201,162,39,0.15), transparent 55%);
-  }
-  header h1 {
-    font-size: clamp(2rem, 6vw, 4rem);
+  nav .logo {
     font-weight: 800; letter-spacing: 3px;
-    background: linear-gradient(90deg, var(--accent), #fff, var(--accent2));
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
-    animation: fadeUp 1.2s ease;
+    font-size: 1rem;
   }
-  header p {
-    font-size: clamp(0.85rem, 2vw, 1.1rem);
+  nav ul { display: flex; gap: 1.5rem; list-style: none; }
+  nav a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 1px;
+    transition: all 0.3s; position: relative;
+  }
+  nav a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    transition: width 0.3s;
+  }
+  nav a:hover { color: var(--accent); }
+  nav a:hover::after { width: 100%; }
+  @media (max-width: 700px) { nav ul { display: none; } }
+  header {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 2rem;
+    position: relative; z-index: 1;
+  }
+  header h1 {
+    font-size: clamp(2.2rem, 7vw, 4.5rem);
+    font-weight: 900; letter-spacing: 4px;
+    background: linear-gradient(120deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+    background-size: 300% 300%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 6s ease infinite, fadeUp 1.2s ease;
+    margin-bottom: 1.5rem;
+  }
+  @keyframes gradientMove {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  header .typed {
+    font-size: clamp(0.85rem, 2vw, 1.15rem);
     color: var(--muted); letter-spacing: 2px;
-    animation: fadeUp 1.2s ease 0.3s both;
+    min-height: 1.5em;
   }
-  header .scroll {
+  header .typed::after {
+    content: '|'; color: var(--accent);
+    animation: blink 1s infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .scroll-hint {
     position: absolute; bottom: 2rem;
     color: var(--accent); font-size: 1.5rem;
     animation: bounce 2s infinite;
   }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-
-  /* SECTIONS */
-  section { padding: 6rem 2rem; max-width: 950px; margin: 0 auto; }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(12px); }
+  }
+  section {
+    padding: 6rem 2rem;
+    max-width: 1000px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
   section h2 {
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
     margin-bottom: 0.5rem; letter-spacing: 2px;
+    font-weight: 800;
     color: var(--text);
   }
-  section h2 span { color: var(--accent); }
-  .subtitle { color: var(--muted); margin-bottom: 2.5rem; font-size: 0.9rem; letter-spacing: 1px; }
-  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  section h2 span {
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    color: var(--muted); margin-bottom: 2.5rem;
+    font-size: 0.9rem; letter-spacing: 1px;
+  }
+  .reveal {
+    opacity: 0; transform: translateY(50px);
+    transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
-  /* CARDS */
   .card {
-    background: var(--bg2);
-    border: 1px solid rgba(201,162,39,0.12);
-    border-radius: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
     padding: 1.8rem;
     margin-bottom: 1.2rem;
-    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(209, 123, 154, 0.08);
   }
   .card:hover {
-    transform: translateY(-6px);
-    border-color: var(--accent);
-    box-shadow: 0 12px 30px rgba(201,162,39,0.12);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(209, 123, 154, 0.22);
+    border-color: var(--accent2);
   }
-  .card h3 { color: var(--accent); margin-bottom: 0.6rem; font-size: 1.15rem; letter-spacing: 1px; }
+  .card h3 {
+    color: var(--accent); margin-bottom: 0.6rem;
+    font-size: 1.15rem; letter-spacing: 1px;
+    font-weight: 700;
+  }
   .card p { color: var(--muted); font-size: 0.95rem; }
-  .card ul { list-style: none; }
-  .card li { color: var(--muted); font-size: 0.95rem; padding: 0.35rem 0; border-bottom: 1px dashed rgba(201,162,39,0.1); }
-  .card li:last-child { border-bottom: none; }
-  .card li strong { color: var(--text); }
+  .card .click-hint {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.8rem; color: var(--accent);
+    letter-spacing: 1px; font-weight: 600;
+  }
+
+  /* 電影海報區 */
+  .poster {
+    width: 100%; aspect-ratio: 2/3;
+    border-radius: 14px;
+    margin-bottom: 1rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 1rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  .poster .emoji { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .poster .title { font-size: 1rem; line-height: 1.3; }
+  .poster .year { font-size: 0.75rem; opacity: 0.8; margin-top: 0.3rem; }
+
+  /* 音樂卡 */
+  .music-card {
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+  }
 
   blockquote {
     border-left: 3px solid var(--accent2);
-    padding-left: 1.2rem; margin-top: 1rem;
+    padding: 1rem 1.2rem; margin-top: 1rem;
     color: var(--muted); font-style: italic; font-size: 0.95rem;
+    background: rgba(255, 228, 236, 0.4);
+    border-radius: 0 12px 12px 0;
   }
-
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
   @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
 
   .tag {
-    display: inline-block; padding: 0.4rem 1rem; margin: 0.3rem;
-    border: 1px solid rgba(201,162,39,0.3); border-radius: 50px;
-    color: var(--muted); font-size: 0.85rem; transition: all 0.3s;
+    display: inline-block; padding: 0.5rem 1.1rem; margin: 0.3rem;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border); border-radius: 50px;
+    color: var(--accent); font-size: 0.85rem; font-weight: 500;
+    transition: all 0.3s; cursor: default;
   }
-  .tag:hover { background: var(--accent); color: var(--bg); }
+  .tag:hover {
+    background: linear-gradient(90deg, var(--accent2), var(--accent3));
+    color: #fff; transform: translateY(-3px);
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(209, 123, 154, 0.3);
+  }
 
-  /* CONTACT */
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(74, 52, 72, 0.4);
+    backdrop-filter: blur(10px);
+    display: none; justify-content: center; align-items: center;
+    z-index: 200; padding: 2rem;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .modal-overlay.open { display: flex; opacity: 1; }
+  .modal {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    max-width: 600px; width: 100%;
+    max-height: 85vh; overflow-y: auto;
+    transform: scale(0.85); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    box-shadow: 0 30px 80px rgba(209, 123, 154, 0.3);
+  }
+  .modal-overlay.open .modal { transform: scale(1); }
+  .modal h3 {
+    font-size: 1.6rem; margin-bottom: 1.2rem;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .modal h4 {
+    color: var(--accent); margin: 1.2rem 0 0.5rem;
+    font-size: 1rem; letter-spacing: 1px;
+  }
+  .modal ul { list-style: none; margin-bottom: 1rem; }
+  .modal li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed var(--border);
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .modal li strong { color: var(--text); }
+  .modal p { color: var(--muted); margin-bottom: 1rem; font-size: 0.95rem; }
+  .modal .lyrics {
+    background: linear-gradient(135deg, #fff5f7, #f5e6ff);
+    padding: 1.2rem; border-radius: 14px;
+    font-style: italic; color: var(--text);
+    margin: 1rem 0;
+    border-left: 3px solid var(--accent);
+    line-height: 1.9;
+  }
+  .modal .listen-btn {
+    display: inline-block; padding: 0.7rem 1.5rem;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    color: #fff; text-decoration: none;
+    border-radius: 50px; font-size: 0.9rem; font-weight: 600;
+    margin-top: 0.8rem; transition: all 0.3s;
+  }
+  .modal .listen-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(209, 123, 154, 0.35);
+  }
+  .modal .close {
+    position: absolute; top: 1rem; right: 1.2rem;
+    background: rgba(255, 228, 236, 0.6);
+    border: none; width: 36px; height: 36px;
+    border-radius: 50%; font-size: 1.4rem; color: var(--accent);
+    cursor: pointer; transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal .close:hover { background: var(--accent); color: #fff; transform: rotate(90deg); }
+
   #contact { text-align: center; }
   #contact a {
     display: inline-block; margin-top: 1.5rem;
-    padding: 0.9rem 2.5rem;
-    border: 1px solid var(--accent); border-radius: 50px;
-    color: var(--accent); text-decoration: none;
-    letter-spacing: 1px; transition: all 0.3s;
+    padding: 1rem 2.8rem;
+    border-radius: 50px; text-decoration: none;
+    color: #fff; font-weight: 600; letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    background-size: 200% 200%;
+    transition: all 0.4s;
+    box-shadow: 0 10px 30px rgba(209, 123, 154, 0.35);
   }
-  #contact a:hover { background: var(--accent); color: var(--bg); }
-
+  #contact a:hover {
+    background-position: 100% 0;
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(209, 123, 154, 0.55);
+  }
   footer {
     text-align: center; padding: 2rem;
     color: var(--muted); font-size: 0.8rem;
-    border-top: 1px solid rgba(201,162,39,0.1);
+    border-top: 1px solid var(--border);
+    position: relative; z-index: 1;
   }
 </style>
 </head>
 <body>
 
+<div id="cursor-glow"></div>
+
 <nav>
-  <div class="logo">SHIRLENE</div>
+  <div class="logo">SHIRLENE WAN</div>
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#music">Music</a></li>
     <li><a href="#film">Film</a></li>
     <li><a href="#reading">Reading</a></li>
+    <li><a href="#travel">Travel</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
 <header>
-  <h1>WAN Hiu Lam Shirlene</h1>
-  <p>BBA (GBM) @ HSUHK · Music &amp; Film Lover · Always reading, always wandering</p>
-  <div class="scroll">↓</div>
+  <h1>Shirlene Wan</h1>
+  <p class="typed" id="typed"></p>
+  <div class="scroll-hint">↓</div>
 </header>
 
 <section id="about" class="reveal">
@@ -164,43 +364,41 @@
 <section id="education" class="reveal">
   <h2>Education <span>&amp; Interests</span></h2>
   <p class="subtitle">Hong Kong Hang Seng University</p>
-  <div class="card">
+  <div class="card" data-modal="edu-modal">
     <h3>BBA in Global Business Management</h3>
     <p>Focused on international business and market operations.</p>
+    <span class="click-hint">Click to read more →</span>
   </div>
-  <div class="card">
+  <div class="card" data-modal="course-modal">
     <h3>Favourite Course — Science and Pseudoscience</h3>
     <p>Explaining unscientific phenomena from a scientific perspective.</p>
-    <blockquote>Fascinating yet challenging. It taught me to question what seems obvious with rigorous thinking.</blockquote>
+    <span class="click-hint">Click to read more →</span>
   </div>
 </section>
 
 <section id="music" class="reveal">
   <h2>Music — <span>My Musical Universe</span></h2>
-  <p class="subtitle">Albums &amp; artists I love</p>
+  <p class="subtitle">Albums &amp; artists I love · Click for chorus lyrics</p>
   <div class="grid">
-    <div class="card">
+    <div class="card music-card" data-modal="rose-modal">
       <h3>Rosé — <em>rosie</em></h3>
-      <ul>
-        <li><strong>Dance All Night</strong></li>
-        <li><strong>Two Years</strong></li>
-        <li>…and the whole album</li>
-      </ul>
+      <p>The whole album, front to back.</p>
+      <span class="click-hint">Click for chorus →</span>
     </div>
-    <div class="card">
+    <div class="card music-card" data-modal="jungkook-modal">
       <h3>Jungkook — <em>Golden</em></h3>
-      <ul>
-        <li><strong>Yes or No</strong></li>
-        <li><strong>Standing Next to You</strong></li>
-      </ul>
+      <p>Standout tracks from the album.</p>
+      <span class="click-hint">Click for chorus →</span>
     </div>
-    <div class="card">
+    <div class="card music-card" data-modal="adele-modal">
       <h3>Adele</h3>
-      <ul><li><strong>Someone Like You</strong></li></ul>
+      <p>Timeless vocals, timeless emotions.</p>
+      <span class="click-hint">Click for chorus →</span>
     </div>
-    <div class="card">
+    <div class="card music-card" data-modal="shakira-modal">
       <h3>Shakira</h3>
-      <ul><li>Energetic tracks like <strong>Addicted to You</strong></li></ul>
+      <p>High-energy anthems that lift the mood.</p>
+      <span class="click-hint">Click for chorus →</span>
     </div>
   </div>
   <blockquote>My playlist has no borders — from heartfelt ballads to high-energy anthems, it's all part of my life.</blockquote>
@@ -208,32 +406,98 @@
 
 <section id="film" class="reveal">
   <h2>Film — <span>Stories That Stay</span></h2>
-  <p class="subtitle">International films I love</p>
+  <p class="subtitle">Films I love · Click a poster for the synopsis</p>
   <div class="grid">
-    <div class="card"><h3>About Time</h3><p>About cherishing the present.</p></div>
-    <div class="card"><h3>Atonement</h3><p>About love and regret.</p></div>
+    <div class="card" data-modal="abouttime-modal">
+      <div class="poster" style="background: linear-gradient(135deg, #4a6fa5, #1e3a5f);">
+        <div class="emoji">⏰</div>
+        <div class="title">About Time</div>
+        <div class="year">2013</div>
+      </div>
+      <h3>About Time</h3>
+      <p>About cherishing the present.</p>
+    </div>
+    <div class="card" data-modal="atonement-modal">
+      <div class="poster" style="background: linear-gradient(135deg, #8b3a3a, #4a1e1e);">
+        <div class="emoji">💔</div>
+        <div class="title">Atonement</div>
+        <div class="year">2007</div>
+      </div>
+      <h3>Atonement</h3>
+      <p>About love and regret.</p>
+    </div>
+    <div class="card" data-modal="jungle-modal">
+      <div class="poster" style="background: linear-gradient(135deg, #4a8b52, #1e4a2a);">
+        <div class="emoji">🌴</div>
+        <div class="title">Welcome to the Jungle</div>
+        <div class="year">2013</div>
+      </div>
+      <h3>Welcome to the Jungle</h3>
+      <p>Comedy adventure in the wild.</p>
+    </div>
+    <div class="card" data-modal="harrypotter-modal">
+      <div class="poster" style="background: linear-gradient(135deg, #6b3a8b, #2a1a4a);">
+        <div class="emoji">⚡</div>
+        <div class="title">Harry Potter</div>
+        <div class="year">2001–2011</div>
+      </div>
+      <h3>Harry Potter Series</h3>
+      <p>The full magical journey.</p>
+    </div>
   </div>
-  <blockquote>I love emotional stories that stay with you. These two moved me the most.</blockquote>
+  <blockquote>I love emotional stories that stay with you long after the credits.</blockquote>
 </section>
 
 <section id="reading" class="reveal">
-  <h2>Reading <span>&amp; Travel</span></h2>
-  <p class="subtitle">Books and places I love</p>
+  <h2>Reading <span>&amp; Books</span></h2>
+  <p class="subtitle">Keigo Higashino &amp; more · Click for plot summaries</p>
   <div class="grid">
-    <div class="card">
-      <h3>Reading</h3>
-      <ul>
-        <li>Keigo Higashino's works</li>
-        <li>Currently reading: <strong>The Hollow Cross</strong></li>
-        <li>Also love the <strong>Masquerade Hotel</strong> series</li>
-      </ul>
+    <div class="card" data-modal="hollow-modal">
+      <h3>The Hollow Cross</h3>
+      <p>Currently reading · Keigo Higashino</p>
+      <span class="click-hint">Click for plot →</span>
     </div>
-    <div class="card">
-      <h3>Travel</h3>
-      <ul>
-        <li>From countryside retreats to shopping in Tokyo</li>
-        <li>Dream destinations: <strong>Austria</strong> &amp; <strong>Belgium</strong></li>
-      </ul>
+    <div class="card" data-modal="namiya-modal">
+      <h3>The Miracles of the Namiya General Store</h3>
+      <p>Keigo Higashino</p>
+      <span class="click-hint">Click for plot →</span>
+    </div>
+    <div class="card" data-modal="hope-modal">
+      <h3>Hope no Ito (希望之線)</h3>
+      <p>Keigo Higashino</p>
+      <span class="click-hint">Click for plot →</span>
+    </div>
+    <div class="card" data-modal="kino-modal">
+      <h3>Kinen no Sho (祈念之書)</h3>
+      <p>Keigo Higashino</p>
+      <span class="click-hint">Click for plot →</span>
+    </div>
+    <div class="card" data-modal="masquerade-modal">
+      <h3>Masquerade Hotel</h3>
+      <p>Keigo Higashino</p>
+      <span class="click-hint">Click for plot →</span>
+    </div>
+    <div class="card" data-modal="sleeping-modal">
+      <h3>Sleeping Beauty / Other Works</h3>
+      <p>More Keigo Higashino favourites</p>
+      <span class="click-hint">Click for details →</span>
+    </div>
+  </div>
+</section>
+
+<section id="travel" class="reveal">
+  <h2>Travel — <span>Stories &amp; Dreams</span></h2>
+  <p class="subtitle">Memories and destinations · Click to read</p>
+  <div class="grid">
+    <div class="card" data-modal="japan-modal">
+      <h3>🇯🇵 Japan 2026 — A Spontaneous Trip</h3>
+      <p>Four friends. One week. Zero planning.</p>
+      <span class="click-hint">Click for the story →</span>
+    </div>
+    <div class="card" data-modal="austria-modal">
+      <h3>🇦🇹 Austria — A Dream</h3>
+      <p>For the opera, the old towns, and the music.</p>
+      <span class="click-hint">Click for the dream →</span>
     </div>
   </div>
 </section>
@@ -260,14 +524,297 @@
   <a href="mailto:shirlene6128@gmail.com">shirlene6128@gmail.com</a>
 </section>
 
-<footer>© 2026 WAN Hiu Lam Shirlene · Built with Vibe Coding</footer>
+<footer>© 2026 Shirlene Wan · Built with Vibe Coding</footer>
+
+<!-- ============ MODALS ============ -->
+
+<div class="modal-overlay" id="edu-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>BBA in Global Business Management</h3>
+    <p>I'm studying at Hong Kong Hang Seng University (HSUHK), majoring in Global Business Management. The programme covers international business, marketing, cross-cultural management, and strategic thinking — skills I hope to apply in a globally connected career.</p>
+    <ul>
+      <li><strong>Focus areas:</strong> International Business, Marketing</li>
+      <li><strong>Skills:</strong> Communication, Presentation, Market Analysis</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal-overlay" id="course-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Science and Pseudoscience</h3>
+    <p>This is the most interesting course I've taken so far. We look at unscientific claims — from horoscopes to paranormal phenomena — and try to explain or debunk them using scientific reasoning.</p>
+    <p>It's both fascinating and challenging. The course taught me to question what seems obvious, and to think more rigorously about the information I encounter every day.</p>
+  </div>
+</div>
+
+<!-- Music Modals -->
+<div class="modal-overlay" id="rose-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Rosé — <em>rosie</em></h3>
+    <p>Rosé's debut solo album <em>rosie</em> is on repeat for me. Honest, vulnerable, beautifully produced.</p>
+    <h4>Dance All Night — Chorus</h4>
+    <div class="lyrics">"We could dance all night, underneath the city lights…"</div>
+    <h4>Two Years — Chorus</h4>
+    <div class="lyrics">"Two years gone, still holding on to what we used to be…"</div>
+    <a class="listen-btn" href="https://www.youtube.com/results?search_query=Rosé+rosie+album" target="_blank">▶ Listen on YouTube</a>
+  </div>
+</div>
+
+<div class="modal-overlay" id="jungkook-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Jungkook — <em>Golden</em></h3>
+    <p>Jungkook's solo album <em>Golden</em> is full of energy — a perfect mix of pop, R&amp;B, and dance.</p>
+    <h4>Yes or No — Chorus</h4>
+    <div class="lyrics">"Tell me yes or no, I just need to know…"</div>
+    <h4>Standing Next to You — Chorus</h4>
+    <div class="lyrics">"I'll be standing next to you, no matter what we're going through…"</div>
+    <a class="listen-btn" href="https://www.youtube.com/results?search_query=Jungkook+Golden+album" target="_blank">▶ Listen on YouTube</a>
+  </div>
+</div>
+
+<div class="modal-overlay" id="adele-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Adele — Someone Like You</h3>
+    <p>Adele's voice turns simple words into deep feelings. This one is raw, honest, and timeless.</p>
+    <h4>Chorus</h4>
+    <div class="lyrics">"Never mind, I'll find someone like you. I wish nothing but the best for you, too…"</div>
+    <a class="listen-btn" href="https://www.youtube.com/results?search_query=Adele+Someone+Like+You" target="_blank">▶ Listen on YouTube</a>
+  </div>
+</div>
+
+<div class="modal-overlay" id="shakira-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Shakira — Addicted to You</h3>
+    <p>When I want energy, Shakira is my go-to. Rhythm, movement, personality.</p>
+    <h4>Chorus</h4>
+    <div class="lyrics">"I'm addicted to you, don't you know that you're toxic…"</div>
+    <a class="listen-btn" href="https://www.youtube.com/results?search_query=Shakira+Addicted+to+You" target="_blank">▶ Listen on YouTube</a>
+  </div>
+</div>
+
+<!-- Film Modals -->
+<div class="modal-overlay" id="abouttime-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>About Time (2013)</h3>
+    <h4>Synopsis</h4>
+    <p>Tim discovers he can travel in time and decides to use his gift to find love and improve his life. But as he learns, the real secret is not time travel — it's learning to live each ordinary day to the fullest.</p>
+    <h4>Why I love it</h4>
+    <p>It made me think about how I want to live: with more awareness, less rush.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="atonement-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Atonement (2007)</h3>
+    <h4>Synopsis</h4>
+    <p>Set in 1930s England, a young girl's false accusation destroys the lives of her older sister and her lover. Spanning decades and war, the story becomes one of guilt, love, and the desperate attempt to atone.</p>
+    <h4>Why I love it</h4>
+    <p>The ending broke my heart. It stayed with me for days.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="jungle-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Welcome to the Jungle (2013)</h3>
+    <h4>Synopsis</h4>
+    <p>A group of office workers is sent to a tropical island for a team-building retreat — but the survival instructor dies, and they're stranded with no real skills. Chaos, comedy, and unlikely friendships follow.</p>
+    <h4>Why I love it</h4>
+    <p>A fun, easy watch — silly but surprisingly warm at the end.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="harrypotter-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Harry Potter Series (2001–2011)</h3>
+    <h4>Synopsis</h4>
+    <p>An orphaned boy discovers he's a wizard and enters Hogwarts School of Witchcraft and Wizardry, where he makes lifelong friends, learns magic, and confronts the dark wizard who killed his parents.</p>
+    <h4>Why I love it</h4>
+    <p>It's more than fantasy — it's about friendship, courage, and growing up. A world I never want to leave.</p>
+  </div>
+</div>
+
+<!-- Reading Modals -->
+<div class="modal-overlay" id="hollow-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>The Hollow Cross (空洞的十字架)</h3>
+    <h4>Plot</h4>
+    <p>A couple's young daughter is murdered. Years later, the killer is caught, but the real question becomes: what does justice actually mean? Is the death penalty the answer, or just another hollow cross to bear?</p>
+    <h4>Why it stays with me</h4>
+    <p>It's not just a mystery — it's a meditation on crime, punishment, redemption, and choice.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="namiya-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>The Miracles of the Namiya General Store (解憂雜貨店)</h3>
+    <h4>Plot</h4>
+    <p>Three young thieves hide in an abandoned grocery store and discover it has a magical mailbox — letters from people decades earlier seeking advice. As they reply, their own lives begin to change.</p>
+    <h4>Why I love it</h4>
+    <p>Warm, gentle, and unexpectedly moving. Every small story connects in a beautiful way.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="hope-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Hope no Ito / 希望之線</h3>
+    <h4>Plot</h4>
+    <p>A café becomes the meeting point for two strangers whose lives quietly intertwine. Told in Higashino's signature style, it's a gentle story about hope, connection, and the small threads that bind us.</p>
+    <h4>Why I love it</h4>
+    <p>Softer than his mysteries — and that's what makes it special.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="kino-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Kinen no Sho / 祈念之書</h3>
+    <h4>Plot</h4>
+    <p>A young man learns about his late father's hidden past through a mysterious tree where people come to pray and remember. A story about family, memory, and the things we carry.</p>
+    <h4>Why I love it</h4>
+    <p>Quiet and reflective — the kind of book that makes you think about your own family.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="masquerade-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>Masquerade Hotel (假面飯店)</h3>
+    <h4>Plot</h4>
+    <p>A detective goes undercover as a hotel employee to catch a serial killer who leaves coded clues at the hotel. Behind the polished service lies a web of secrets.</p>
+    <h4>Why I love it</h4>
+    <p>A clever mix of mystery and human observation — you never quite know who to trust.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="sleeping-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>More Keigo Higashino</h3>
+    <p>Other books I've loved or want to read:</p>
+    <ul>
+      <li><strong>Journey Under the Midnight Sun</strong></li>
+      <li><strong>The Devotion of Suspect X</strong></li>
+      <li><strong>Malice</strong></li>
+    </ul>
+    <p>Each one shows a different side of his talent — from cold logic to deep emotion.</p>
+  </div>
+</div>
+
+<!-- Travel Modals -->
+<div class="modal-overlay" id="japan-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>🇯🇵 Japan, September 2026</h3>
+    <h4>The Story</h4>
+    <p>Early September, four friends — including me — decided on a whim to go to Japan. No months of planning, just a spontaneous "let's do it." We spent a week there, shopping non-stop, eating everything, laughing until we couldn't stand.</p>
+    <p>Even after returning to Hong Kong, it still feels like a dream. Every photo brings a smile back. It wasn't a perfect trip — it was a spontaneous one, and that made it unforgettable.</p>
+    <h4>What I learned</h4>
+    <p>Sometimes the best memories come from plans you never made.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="austria-modal">
+  <div class="modal">
+    <button class="close">×</button>
+    <h3>🇦🇹 Austria — My Dream Destination</h3>
+    <h4>Why Austria?</h4>
+    <p>I've always wanted to see an opera in Vienna. Austria feels like the home of classical music — grand concert halls, elegant streets, and a quiet kind of beauty that I want to experience firsthand.</p>
+    <h4>What I want to do</h4>
+    <ul>
+      <li>Watch an opera in Vienna</li>
+      <li>Walk through Salzburg's old town</li>
+      <li>Visit a quiet Alpine village</li>
+      <li>Just sit in a café and take it all in</li>
+    </ul>
+  </div>
+</div>
 
 <script>
+  const glow = document.getElementById('cursor-glow');
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  const petals = ['🌸', '🌷', '✿', '❀', '🌺'];
+  for (let i = 0; i < 15; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (10 + Math.random() * 15) + 's';
+    p.style.animationDelay = Math.random() * 10 + 's';
+    p.style.fontSize = (0.7 + Math.random() * 0.8) + 'rem';
+    document.body.appendChild(p);
+  }
+
+  const lines = [
+    'BBA (GBM) @ HSUHK',
+    'Music & Film Lover',
+    'Always reading, always wandering'
+  ];
+  const typedEl = document.getElementById('typed');
+  let lineIdx = 0, charIdx = 0, deleting = false;
+  function type() {
+    const line = lines[lineIdx];
+    if (!deleting) {
+      typedEl.textContent = line.substring(0, charIdx++);
+      if (charIdx > line.length) {
+        deleting = true;
+        setTimeout(type, 1500); return;
+      }
+    } else {
+      typedEl.textContent = line.substring(0, charIdx--);
+      if (charIdx < 0) {
+        deleting = false;
+        lineIdx = (lineIdx + 1) % lines.length;
+      }
+    }
+    setTimeout(type, deleting ? 40 : 80);
+  }
+  type();
+
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
   }, { threshold: 0.15 });
   reveals.forEach(r => observer.observe(r));
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.modal;
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('open');
+    });
+  });
+
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.classList.contains('close')) {
+        overlay.classList.remove('open');
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    }
+  });
 </script>
+
 </body>
 </html>
